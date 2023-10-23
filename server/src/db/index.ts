@@ -8,9 +8,7 @@ class ConnectionPool {
     const { DB_USER, DB_HOST, DB_NAME, DB_PASS } = process.env
 
     if (!DB_USER || !DB_HOST || !DB_NAME || !DB_PASS) {
-      throw new Error(
-        'Missing required environment variables for database connection.',
-      )
+      throw new Error('Missing required environment variables for database connection.')
     }
 
     this.pool = new Pool({
@@ -25,15 +23,8 @@ class ConnectionPool {
     return this.pool.connect()
   }
 
-  query<T extends QueryResultRow>(
-    queryText: string,
-    values?: any[],
-  ): Promise<QueryResult<T>> {
+  query<T extends QueryResultRow>(queryText: string, values?: any[]): Promise<QueryResult<T>> {
     return this.pool.query(queryText, values)
-  }
-
-  getClient() {
-    return this.pool.connect()
   }
 }
 
