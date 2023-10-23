@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "CommonJS",
+    "baseUrl": ".",
+    "esModuleInterop": true
+  },
+  "include": ["src"]
+}

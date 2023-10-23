@@ -1,0 +1,234 @@
+###########################################
+###############   ENUMS   ################
+###########################################
+
+# Enumeration for different user roles
+enum RoleType {
+  SUPER_ADMIN # Super administrator role
+  BUSINESS_ADMIN # Business administrator role
+  BUSINESS_ACCOUNT # Business account role
+  DEFAULT_ACCOUNT # Default user role
+}
+
+enum StatusType {
+  PENDING # Pending status
+  ACCEPTED # Accepted status
+  EXPIRED # Expired status
+}
+
+enum RolePermission {
+  READ # Role only has read permissions
+  WRITE # Role has write permissions
+  UPDATE # Role has update permissions
+  DELETE # Role has delete permissions
+  REJECT # Role has reject permissions
+  APPROVE # Role has approve permissions
+  NO_ACCESS # Role has no access permissions
+}
+
+###########################################
+##############   QUERIES   ###############
+###########################################
+
+# Root query type for retrieving data
+type Query {
+  users: [UserAccount!]! # retrieve all user accounts
+  userAccount(userAccountId: ID!): UserAccount! # retrieve the user's account
+}
+
+###########################################
+############   MUTATIONS   ##############
+###########################################
+
+# Root mutation type for modifying data
+type Mutation {
+  createUserAccount(input: CreateAccountInput!): CreateAccountPayload! # Create a new account
+}
+
+###########################################
+##############   INPUTS   ###############
+###########################################
+
+input CreateAccountInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  username: String!
+  business: BusinessAccountInput
+}
+
+input BusinessAccountInput {
+  address: AddressInput!
+  businessName: String!
+  businessDescription: String
+  phoneNumber: String!
+}
+
+input AddressInput {
+  city: String!
+  countryId: String!
+  postalCode: String!
+  region: String!
+  street1: String!
+  street2: String
+}
+
+###########################################
+############   FRAGMENTS   ##############
+###########################################
+
+# Fragment for basic account information
+fragment BasicAccountInfo on UserAccount {
+  avatarUrl
+  userAccountId
+  firstName
+  lastName
+  username
+  email
+}
+
+###########################################
+###############   TYPES   ###############
+###########################################
+
+type CreateAccountPayload {
+  token: String!
+}
+
+# Type representing an address
+type Address {
+  addressId: ID! # Unique identifier for the address
+  city: String! # City name
+  country: String! # Country name
+  postalCode: String! # Postal code
+  stateProvince: String! # State or province name
+  street1: String! # First line of street address
+  street2: String # Second line of street address
+}
+
+# Type representing a business entity
+type Business {
+  address: [Address!]! # List of addresses associated with the business
+  businessDescription: String! # Description of the business
+  businessId: ID! # Unique identifier for the business
+  businessName: String! # Name of the business
+  email: String! # Business email address
+  images: [Image!]! # List of images associated with the business
+  logoUrl: String # URL for the business logo
+  phoneNumber: String! # Business phone number
+  products: [Product!]! # List of products associated with the business
+  users: [UserAccount!]! # List of users associated with the business
+}
+
+# Type representing a comment
+type Comment {
+  commentId: String! # Unique identifier for the comment
+  content: String! # Content of the comment
+  createdAt: String! # Timestamp of when the comment was created
+  suggestionId: String! # Unique identifier for the associated suggestion
+  updatedAt: String! # Timestamp of when the comment was last updated
+  userId: ID! # Unique identifier for the user who made the comment
+}
+
+# Type representing a downvote on a comment
+type CommentDownvote {
+  commentDownvoteId: ID! # Unique identifier for the comment downvote
+  commentId: ID! # Unique identifier for the associated comment
+  timestamp: String! # Timestamp of when the downvote was made
+  userId: ID! # Unique identifier for the user who made the downvote
+}
+
+# Type representing an upvote on a comment
+type CommentUpvote {
+  commentId: ID! # Unique identifier for the associated comment
+  commentUpvoteId: ID! # Unique identifier for the comment upvote
+  timestamp: String! # Timestamp of when the upvote was made
+  userId: ID! # Unique identifier for the user who made the upvote
+}
+
+# Type representing an image
+type Image {
+  altText: String # Alternative text for the image
+  description: String # Description of the image
+  imageId: ID! # Unique identifier for the image
+  imageUrl: String # URL for the image
+  timestamp: String # Timestamp of when the image was created
+}
+
+# Type representing a product
+type Product {
+  createdAt: String! # Timestamp of when the product was created
+  images: [Image!]! # List of images associated with the product
+  productId: ID! # Unique identifier for the product
+  productDescription: String! # Description of the product
+  productName: String! # Name of the product
+  suggestionCategories: [SuggestionCategory!]! # List of suggestion categories associated with the product
+  suggestions: [Suggestion!]! # List of suggestions associated with the product
+  updatedAt: String! # Timestamp of when the product was last updated
+}
+
+# Type representing a suggestion
+type Suggestion {
+  category: SuggestionCategory! # Category of the suggestion
+  comments: [Comment!]! # List of comments associated with the suggestion
+  contents: String! # Contents of the suggestion
+  createdAt: String! # Timestamp of when the suggestion was created
+  downvotes: [SuggestionDownvote!]! # List of downvotes associated with the suggestion
+  suggestionId: ID! # Unique identifier for the suggestion
+  updatedAt: String! # Timestamp of when the suggestion was last updated
+}
+
+# Type representing a suggestion category
+type SuggestionCategory {
+  createdAt: String! # Timestamp of when the suggestion category was created
+  suggestionCategoryId: ID! # Unique identifier for the suggestion category
+  suggestionCategoryName: String! # Name of the suggestion category
+  updatedAt: String! # Timestamp of when the suggestion category was last updated
+}
+
+# Type representing a suggestion downvote
+type SuggestionDownvote {
+  suggestionDownvoteId: ID! # Unique identifier for the suggestion downvote
+  suggestionId: ID! # Unique identifier for the associated suggestion
+  timestamp: String! # Timestamp of when the downvote was made
+  userId: ID! # Unique identifier for the user who made the downvote
+}
+
+# Type representing a suggestion upvote
+type SuggestionUpvote {
+  suggestionId: ID! # Unique identifier for the associated suggestion
+  suggestionUpvoteId: ID! # Unique identifier for the suggestion upvote
+  timestamp: String! # Timestamp of when the upvote was made
+  userId: ID! # Unique identifier for the user who made the upvote
+}
+
+# Type representing a user account
+type UserAccount {
+  avatarUrl: String # URL for the user's avatar
+  business: Business # Business associated with the user
+  comments: [Comment!]! # List of comments made by the user
+  createdAt: String! # Timestamp of when the user account was created
+  downvotedComments: [Comment!]! # List of comments downvoted by the user
+  downvotedSuggestions: [Suggestion!]! # List of suggestions downvoted by the user
+  email: String! # Email address of the user
+  firstName: String! # First name of the user
+  lastName: String! # Last name of the user
+  roleType: [RoleType!]! # Role type of the user account (account can have multiple roles)
+  suggestions: [Suggestion!]! # List of suggestions made by the user
+  updatedAt: String! # Timestamp of when the user account was last updated
+  upvotedComments: [Comment!]! # List of comments upvoted by the user account
+  upvotedSuggestions: [Suggestion!]! # List of suggestions upvoted by the user account
+  userAccountId: ID! # Unique identifier for the user account
+  username: String! # Username of the user account
+}
+
+# Type representing a user invitation
+type UserInvitation {
+  userInvitationId: ID! # Unique identifier for the user invitation (non-nullable)
+  token: String! # A JWT token associated with the invitation (non-nullable)
+  userAccountId: ID! # Unique identifier for the associated user account (non-nullable)
+  createdAt: String! # The date and time when the user invitation was created (non-nullable)
+  updatedAt: String! # The date and time when the user invitation was last updated (non-nullable)
+  status: StatusType! # The status of the user invitation (non-nullable)
+}

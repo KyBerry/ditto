@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+    networks:
+      - ditto-app
+    ports:
+      - '6969:5432'
+  server:
+    build:
+      context: .
+      target: dev-server
+    env_file:
+      - .env
+    networks:
+      - ditto-app
+    depends_on:
+      - postgres
+    ports:
+      - '4000:4000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/client/node_modules
+      - /app/server/node_modules
+  client:
+    build:
+      context: .
+      target: dev-client
+    env_file:
+      - .env
+    networks:
+      - ditto-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/client/node_modules
+      - /app/server/node_modules
+
+networks:
+  ditto-app:
+    driver: bridge

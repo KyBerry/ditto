@@ -1,0 +1,6 @@
+{
+  "verbose": true,
+  "watch": ["src", "../schema.graphql"],
+  "ext": "ts, graphql, json",
+  "exec": "ts-node -r tsconfig-paths/register ./src/index.ts"
+}

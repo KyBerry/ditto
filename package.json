@@ -1,0 +1,11 @@
+{
+  "name": "ditto",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo for Ditto frontend and backend",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KyBerry",
+  "license": "SEE LICENSE IN LICENSE.md"
+}
