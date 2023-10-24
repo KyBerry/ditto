@@ -12,7 +12,7 @@
       "@/hooks": ["src/hooks"],
       "@/gql/*": ["src/gql/*"],
       "@/assets/*": ["src/assets/*"],
-      "@/scss/*": ["src/scss/*"]
+      "@/styles/*": ["src/styles/*"]
     }
   },
   "include": ["src"]

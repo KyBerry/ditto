@@ -11,6 +11,7 @@
   "author": "KyBerry",
   "license": "SEE LICENSE IN LICENSE.md",
   "dependencies": {
+    "@stitches/core": "^1.2.8",
     "solid-js": "^1.8.3"
   },
   "devDependencies": {

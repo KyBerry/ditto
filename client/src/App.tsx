@@ -1,10 +1,14 @@
 import type { Component } from 'solid-js'
+import { globalResetStyles } from '@/styles/reset'
 
 const App: Component = () => {
   return (
-    <div>
-      <h1>Hello from SolidJS</h1>
-    </div>
+    <>
+      {globalResetStyles()}
+      <div>
+        <h1>Hello from SolidJS!!</h1>
+      </div>
+    </>
   )
 }
 
