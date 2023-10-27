@@ -33,11 +33,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        type: 'asset/resource',
       },
       {
         test: /\.scss$/,
@@ -66,6 +62,7 @@ module.exports = {
       '@/assets': path.resolve(__dirname, '../src/assets'),
       '@/styles': path.resolve(__dirname, '../src/styles'),
       '@/components': path.resolve(__dirname, '../src/components/'),
+      '@/contexts': path.resolve(__dirname, '../src/contexts'),
       '@/hooks': path.resolve(__dirname, '../src/hooks/'),
       '@/gql': path.resolve(__dirname, '../src/gql/'),
     },

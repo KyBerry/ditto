@@ -1,6 +1,11 @@
 import { createStitches } from '@stitches/core'
 import { baseThemeTokens } from './tokens'
 
-export const { css, globalCss } = createStitches({
+export const {
+  theme: baseTheme,
+  createTheme,
+  css,
+  globalCss,
+} = createStitches({
   theme: baseThemeTokens,
 })

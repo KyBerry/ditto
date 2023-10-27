@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@/components": ["src/components"],
+      "@/contexts": ["src/contexts"],
       "@/hooks": ["src/hooks"],
       "@/gql/*": ["src/gql/*"],
       "@/assets/*": ["src/assets/*"],
