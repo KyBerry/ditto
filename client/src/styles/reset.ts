@@ -20,6 +20,9 @@ export const globalResetStyles = globalCss({
     fontFamily: '$sans',
     lineHeight: '$base',
   },
+  body: {
+    background: '$neutral-50',
+  },
   h1: {
     fontWeight: '$light',
   },

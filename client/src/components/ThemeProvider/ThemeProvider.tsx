@@ -46,7 +46,7 @@ const ThemeProvider = (props: ThemeProviderProps) => {
   }
 
   const toggleTheme = () => {
-    setSavedTheme(isDarkTheme() ? 'light' : 'dark')
+    updateSavedTheme(isDarkTheme() ? 'light' : 'dark')
   }
 
   const context: ThemeContextValue = {
