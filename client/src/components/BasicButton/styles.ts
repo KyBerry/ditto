@@ -6,6 +6,7 @@ export const basicButtonStyles = css({
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
+  fontWeight: '$semibold',
   gap: '$2',
   variants: {
     variant: {

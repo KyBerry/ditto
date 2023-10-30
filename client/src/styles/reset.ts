@@ -21,7 +21,7 @@ export const globalResetStyles = globalCss({
     lineHeight: '$base',
   },
   body: {
-    background: '$neutral-50',
+    background: '$bg-50',
   },
   h1: {
     fontWeight: '$light',

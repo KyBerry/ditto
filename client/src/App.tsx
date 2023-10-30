@@ -1,22 +1,23 @@
 import type { Component } from 'solid-js'
-import { css } from '@/styles/stitches.config'
-import { BasicButton, Form, Navbar, ThemeProvider } from '@/components'
+import { Suspense } from 'solid-js'
+import { Client, cacheExchange, fetchExchange } from '@urql/core'
+import { UnauthorizedRoutes } from '@/routes'
+import { ThemeProvider, UrqlProvider } from '@/components'
+
+const client = new Client({
+  // TODO: don't hardcode this
+  url: 'http://localhost:4000/graphql',
+  exchanges: [cacheExchange, fetchExchange],
+})
 
 const App: Component = () => {
   return (
     <ThemeProvider>
-      <div>
-        <Navbar />
-        <h1>Hello from SolidJS!!</h1>
-        <BasicButton label="This is a button" isLoading />
-        <Form.Root defaultValues={{ name: '' }}>
-          <h2>Hey</h2>
-        </Form.Root>
-        <div
-          class={css({ background: '$neutral-100' })()}
-          style={{ width: '100px', height: '100px' }}
-        ></div>
-      </div>
+      <UrqlProvider client={client}>
+        <Suspense fallback="Loading...">
+          <UnauthorizedRoutes />
+        </Suspense>
+      </UrqlProvider>
     </ThemeProvider>
   )
 }
